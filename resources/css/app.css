@@ -8,4 +8,9 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-handjet: 'Handjet', cursive;
+    --color-purple: #4D089A;
+    --color-blue: #323EDD;
+    --color-pink: #DC2ADE;
+    --color-yellow: #E8F044;
 }
