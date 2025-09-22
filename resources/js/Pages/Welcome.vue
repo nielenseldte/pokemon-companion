@@ -15,8 +15,8 @@ import NavigationButton from '../Components/Buttons/NavigationButton.vue';
                 <h1 class="text-3xl">Welcome to Pokémon Companion!</h1>
             </section>
             <section class="flex items-center justify-evenly">
-                <NavigationButton href="/home">Sign Up</NavigationButton>
-                <Link href="/home"
+                <NavigationButton href="/register">Sign Up</NavigationButton>
+                <Link href="/login"
                     class="rounded-md bg-white px-3 py-1 transition-all duration-200 cursor-pointer hover:scale-105 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:text-white">
                     Log In
                 </Link>
