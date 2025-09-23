@@ -9,7 +9,9 @@ Route::get('/', function () {
 
 Route::get('/home', function() {
     //sleep(2);
-    return inertia('Home');
+    return inertia('Home', [
+        'time' => now()->toTimeString()
+    ]);
 });
 
 Route::get('/my-cards', function() {
@@ -32,6 +34,6 @@ Route::get('/login', function() {
     return inertia('Auth/Login');
 });
 
-Route::post('/login', LoginController::class)->name('login.attempt');
+Route::post('/login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
 
 // Route::post('/logout'. LogOutController::class)->name('logout');
