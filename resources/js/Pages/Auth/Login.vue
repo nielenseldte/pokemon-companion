@@ -1,39 +1,25 @@
 <script setup>
+import Form from '../../Components/Form/Form.vue';
+import FormField from '../../Components/Form/FormField.vue';
+import FormInput from '../../Components/Form/FormInput.vue';
+
 </script>
 <template>
-    <section class="flex items-center justify-center min-h-screen">
-        <form class="min-w-sm">
-            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-                <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
-                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <p class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                            Log in to your account
-                        </p>
-                        <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">
-                                Email
-                            </label>
-                            <input placeholder="email@example.com"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                                name="email" id="email" type="text">
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">
-                                Password
-                            </label>
-                            <input
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                                placeholder="••••••••" name="password" id="password" type="password">
-                        </div>
-                        <button
-                            class="w-full cursor-pointer bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white"
-                            type="submit">
-                            Log In
-                        </button>
+    <section
+        class="flex items-center justify-center min-h-screen bg-gradient-to-r dark:from-blue dark:to-purple-900 from-yellow to-orange-400">
+        <Form heading="Log in to your account">
+            <FormField label="Email">
+                <FormInput name="email" type="email" placeholder="example@email.com" />
+            </FormField>
+            <FormField label="Password">
+                <FormInput name="password" type="password" placeholder="••••••••" />
+            </FormField>
+            <button
+                class="w-full cursor-pointer bg-blue dark:bg-yellow dark:text-black hover:scale-105 transition-all duration-150 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white"
+                type="submit">
+                Log In
+            </button>
+        </Form>
 
-                    </div>
-                </div>
-            </div>
-        </form>
     </section>
 </template>

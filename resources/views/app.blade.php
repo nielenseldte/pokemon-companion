@@ -11,7 +11,7 @@
     @inertiaHead
 </head>
 
-<body class="font-handjet">
+<body class="h-full font-handjet">
     @inertia
 </body>
 
