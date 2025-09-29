@@ -11,7 +11,7 @@ class SessionController extends Controller
     
     public function create()
     {
-        return inertia('Auth/Login');
+        return inertia('Public/Auth/Login');
     }
 
     
@@ -38,6 +38,6 @@ class SessionController extends Controller
     {
         $logOutUser->perform();
 
-        return inertia('Welcome');
+        return inertia('Public/Welcome');
     }
 }

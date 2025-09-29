@@ -9,7 +9,7 @@ class RegistrationController extends Controller
 {
     public function create()
     {
-        return inertia('Auth/Register');
+        return inertia('Public/Auth/Register');
     }
     
     public function store(Request $request, RegisterUserAction $registerUser)

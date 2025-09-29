@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
     return inertia('Public/Welcome');
