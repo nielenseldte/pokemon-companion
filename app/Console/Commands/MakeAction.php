@@ -52,6 +52,23 @@ class MakeAction extends Command implements PromptsForMissingInput
         return $models;
     }
 
+    protected function createActionBaseClass()
+    {
+        $directory = app_path('Actions');
+        $filePath = $directory . '/Action.php';
+        $stubPath = base_path('stubs/action.baseclass.stub');
+
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
+
+        if (!File::exists($filePath)) {
+            $content = File::get($stubPath);
+            File::put($filePath, $content);
+        }
+
+    }
+
     protected function createActionInterface()
     {
         $directory = app_path('Actions/Contracts');
@@ -149,6 +166,7 @@ class MakeAction extends Command implements PromptsForMissingInput
             $makeLogMethod = $logChoice === "Yes";
         }
 
+        $this->createActionBaseClass();
         $this->createActionInterface();
 
         if (!$model) {

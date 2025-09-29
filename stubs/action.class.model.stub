@@ -2,10 +2,11 @@
 
 namespace {{ namespace }};
 
+use App\Actions\Action;
 use App\Actions\Contracts\ActionInterface;
 use App\Models\{{ model }};
 
-class {{ class }} implements ActionInterface
+class {{ class }} extends Action implements ActionInterface
 {
     public function perform(...$args)
     {
