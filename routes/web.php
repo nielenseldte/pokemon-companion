@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
     return inertia('Welcome');
@@ -34,6 +35,7 @@ Route::get('/login', function() {
     return inertia('Auth/Login');
 });
 
-Route::post('/login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
+// Route::post('/login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
+// Route::post('/register', [RegistrationController::class, 'store'])->name('register.attempt');
 
 // Route::post('/logout'. LogOutController::class)->name('logout');

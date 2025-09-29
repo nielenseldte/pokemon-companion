@@ -89,7 +89,7 @@ class MakeAction extends Command implements PromptsForMissingInput
     {
         $directory = app_path('Actions');
         $filePath = $directory . "/$name.php";
-        $logable ?  $stubPath = base_path('stubs/action.class.standard.stub') : $stubPath = base_path('stubs/action.class.standard.logable.stub');
+        $logable ?  $stubPath = base_path('stubs/action.class.standard.logable.stub') : $stubPath = base_path('stubs/action.class.standard.stub');
 
         $stub = File::get($stubPath);
 
@@ -113,7 +113,7 @@ class MakeAction extends Command implements PromptsForMissingInput
     {
         $directory = app_path("Actions/$modelName");
         $filePath = $directory . "/$name.php";
-        $logable ?  $stubPath = base_path('stubs/action.class.model.stub') : $stubPath = base_path('stubs/action.class.model.logable.stub');
+        $logable ?  $stubPath = base_path('stubs/action.class.model.logable.stub') : $stubPath = base_path('stubs/action.class.model.stub');
 
         $stub = File::get($stubPath);
 

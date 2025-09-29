@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use App\Actions\Action;
 use App\Actions\Contracts\ActionInterface;
+use Illuminate\Support\Facades\Log;
 
 class {{ class }} extends Action implements ActionInterface
 {

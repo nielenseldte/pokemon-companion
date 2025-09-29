@@ -6,8 +6,8 @@ import Nav from './Nav.vue';
     <header class="flex py-5 px-1 bg-yellow w-full">
         <Nav />
     </header>
-    <main>
-        <slot />
+    <main class="p-6">
+        <section class="max-w-3xl mx-auto"><slot /></section>
     </main>
     <footer>
 

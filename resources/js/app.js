@@ -1,5 +1,6 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp, Link } from '@inertiajs/vue3'
+import Layout from './Shared/Layout.vue'
 
 createInertiaApp({
     resolve: name => {
@@ -9,6 +10,8 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .component('Layout', Layout)
+            .component('Link', Link)
             .mount(el)
     },
     progress: {
