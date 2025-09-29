@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 
 class MakeAction extends Command implements PromptsForMissingInput
@@ -21,16 +22,34 @@ class MakeAction extends Command implements PromptsForMissingInput
      *
      * @var string
      */
-    protected $description = 'Creates an Action class with a handle() method 
+    protected $description = 'Creates an Action class with a perform() method 
     {name : The name of your action. eg. ShowPostAction} 
     {model? : the eloquent model you want to link to the action} 
-    {--logable : Whether to make an optional logResults() method on the Action class}';
+    {--logable : Whether you want an optional logResults() method on the action}';
 
     protected function promptForMissingArgumentsUsing(): array
     {
         return [
-            'name' => ['What should you Action be called? Think about it logically, what does this class do?', 'E.g. ShowPostAction'],
+            'name' => ['What should you Action be called? Think about it logically, what will this class do?', 'E.g. ShowPostAction, MakeUserPaymentAction'],
         ];
+    }
+
+    protected function getEloquentModels()
+    {
+        $models = [];
+        $modelsPath = app_path('Models');
+
+        if (File::exists($modelsPath)) {
+            $modelFiles = File::allFiles($modelsPath);
+
+            foreach ($modelFiles as $modelFile) {
+                $className = 'App\\Models\\' . $modelFile->getFilenameWithoutExtension();
+                if (class_exists($className) && is_subclass_of($className, Model::class)) {
+                    $models[] = $modelFile->getFilename();
+                }
+            }
+        }
+        return $models;
     }
 
     protected function createActionInterface()
@@ -114,7 +133,7 @@ class MakeAction extends Command implements PromptsForMissingInput
             ], 0);
 
             if ($modelChoice === "Yes") {
-                $models = get_eloquent_models();
+                $models = $this->getEloquentModels();
                 $model = $this->anticipate('Which Model would you like to link it to?', $models, 0);
             }
         }
