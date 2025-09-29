@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
-    return inertia('Welcome');
+    return inertia('Public/Welcome');
 });
 
 Route::get('/home', function() {
@@ -28,11 +28,11 @@ Route::get('/all-cards', function() {
 });
 
 Route::get('/register' ,function() {
-    return inertia('Auth/Register');
+    return inertia('Public/Auth/Register');
 });
 
 Route::get('/login', function() {
-    return inertia('Auth/Login');
+    return inertia('Public/Auth/Login');
 });
 
 // Route::post('/login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');

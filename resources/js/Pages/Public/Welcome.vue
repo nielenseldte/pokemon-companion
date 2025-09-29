@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import NavigationButton from '../Components/Buttons/NavigationButton.vue';
+import NavigationButton from '../../Components/Buttons/NavigationButton.vue';
 </script>
 
 <template>
