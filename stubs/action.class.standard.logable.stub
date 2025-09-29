@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Actions\Contracts\ActionInterface;
+
+class {{ class }} implements ActionInterface
+{
+    public function perform(...$args)
+    {
+        //
+    }
+
+    public function logResults()
+    {
+        //
+    }
+}
