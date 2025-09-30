@@ -1,27 +1,42 @@
 <script setup>
-import Form from '../../../Components/Form/Form.vue';
+import FormComponent from '../../../Components/Form/FormComponent.vue';
 import FormField from '../../../Components/Form/FormField.vue';
 import FormInput from '../../../Components/Form/FormInput.vue';
+import {useForm} from '@inertiajs/vue3';
+
+let form = useForm({
+    username: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+});
+
+let submit = () => {
+    form.post('/register');
+};
 </script>
 <template>
-    <section
-        class="flex items-center justify-center min-h-screen bg-gradient-to-r dark:from-blue dark:to-purple-900 from-yellow to-orange-400">
-        <Form heading="Create your account">
-            <FormField label="Email">
-                <FormInput name="email" type="email" placeholder="example@email.com" />
+    <section class="flex items-center justify-center min-h-screen dark:bg-gray-800 bg-gray-200">
+        <FormComponent @submit.prevent="submit" heading="Create your account">
+            <FormField :error="form.errors.username" for="username" label="Username">
+                <FormInput v-model="form.username" name="username" type="text" />
             </FormField>
-            <FormField label="Password">
-                <FormInput name="password" type="password" placeholder="••••••••" />
+            <FormField :error="form.errors.email" for="email" label="Email">
+                <FormInput v-model="form.email" name="email" type="email" placeholder="example@email.com" />
             </FormField>
-            <FormField label="Confirm Password">
-                <FormInput name="password_confirm" type="password" placeholder="••••••••" />
+            <FormField :error="form.errors.password" for="password" label="Password">
+                <FormInput v-model="form.password" name="password" type="password" placeholder="••••••••" />
+            </FormField>
+            <FormField :error="form.errors.password_confirmation" for="password_confirm" label="Confirm Password">
+                <FormInput v-model="form.password_confirmation" name="password_confirm" type="password"
+                    placeholder="••••••••" />
             </FormField>
             <button
                 class="w-full cursor-pointer bg-blue dark:bg-yellow dark:text-black hover:scale-105 transition-all duration-150 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white"
-                type="submit">
+                type="submit" :disabled="form.processing">
                 Create Account
             </button>
-        </Form>
+        </FormComponent>
     </section>
 
 </template>

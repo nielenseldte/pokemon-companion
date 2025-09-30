@@ -10,7 +10,7 @@ defineProps({
 
 const page = usePage();
 const username = computed(() => {
-    return page.props.auth.user?.name;
+    return page.props.auth.user?.username;
 });
 
 </script>

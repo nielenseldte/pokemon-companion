@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,15 +26,11 @@ Route::get('/all-cards', function() {
     return inertia('AllCards');
 });
 
-Route::get('/register' ,function() {
-    return inertia('Public/Auth/Register');
-});
+//Registration
+Route::get('/register' ,[RegistrationController::class, 'create'])->name('register');
+Route::post('/register', [RegistrationController::class, 'store']);
 
 Route::get('/login', function() {
     return inertia('Public/Auth/Login');
 });
 
-// Route::post('/login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
-// Route::post('/register', [RegistrationController::class, 'store'])->name('register.attempt');
-
-// Route::post('/logout'. LogOutController::class)->name('logout');

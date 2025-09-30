@@ -5,6 +5,10 @@ const props = defineProps({
         type: String,
         required: true
     }, 
+    error: {
+        type: String,
+        required: true
+    }
 })
 
 </script>
@@ -14,5 +18,6 @@ const props = defineProps({
             {{ label }}
         </label>
         <slot />
+        <div v-if="error" class="text-sm text-red-500 mt-2">{{ error }}</div>
     </div>
 </template>

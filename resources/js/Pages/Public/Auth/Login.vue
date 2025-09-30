@@ -1,5 +1,5 @@
 <script setup>
-import Form from '../../../Components/Form/Form.vue';
+import FormComponent from '../../../Components/Form/FormComponent.vue';
 import FormField from '../../../Components/Form/FormField.vue';
 import FormInput from '../../../Components/Form/FormInput.vue';
 
@@ -7,7 +7,7 @@ import FormInput from '../../../Components/Form/FormInput.vue';
 <template>
     <section
         class="flex items-center justify-center min-h-screen bg-gradient-to-r dark:from-blue dark:to-purple-900 from-yellow to-orange-400">
-        <Form heading="Log in to your account">
+        <FormComponent heading="Log in to your account">
             <FormField label="Email">
                 <FormInput name="email" type="email" placeholder="example@email.com" />
             </FormField>
@@ -19,7 +19,7 @@ import FormInput from '../../../Components/Form/FormInput.vue';
                 type="submit">
                 Log In
             </button>
-        </Form>
+        </FormComponent>
 
     </section>
 </template>
