@@ -11,7 +11,7 @@ import { Link } from '@inertiajs/vue3';
             <NavLink href="/all-cards" :active="$page.component == 'AllCards'">All Cards</NavLink>
         </section>
         <section class="flex">
-            <Link href="/logout"
+            <Link method="post" href="/logout"
                 class="hover:scale-110 text-red-600 hover:font-bold border-b-2 hover:border-red-600 border-transparent transition-all duration-150">
             Log Out
             </Link>
