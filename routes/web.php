@@ -13,7 +13,7 @@ Route::get('/home', function() {
     return inertia('Home', [
         'time' => now()->toTimeString()
     ]);
-});
+})->name('home');
 
 Route::get('/my-cards', function() {
     return inertia('MyCards');
@@ -33,5 +33,6 @@ Route::post('/register', [RegistrationController::class, 'store']);
 
 //Session handling
 Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 

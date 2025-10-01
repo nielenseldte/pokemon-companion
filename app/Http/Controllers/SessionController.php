@@ -24,7 +24,7 @@ class SessionController extends Controller
 
         if ($logInUser->perform($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended();
+            return redirect()->intended('home');
         } 
 
         return back()->withErrors([

@@ -2,6 +2,7 @@
 import FormComponent from '../../../Components/Form/FormComponent.vue';
 import FormField from '../../../Components/Form/FormField.vue';
 import FormInput from '../../../Components/Form/FormInput.vue';
+import FormButton from '../../../Components/Buttons/FormButton.vue';
 import {useForm} from '@inertiajs/vue3';
 
 let form = useForm({
@@ -27,15 +28,11 @@ let submit = () => {
             <FormField :error="form.errors.password" for="password" label="Password">
                 <FormInput v-model="form.password" name="password" type="password" placeholder="••••••••" />
             </FormField>
-            <FormField :error="form.errors.password_confirmation" for="password_confirm" label="Confirm Password">
+            <FormField for="password_confirm" label="Confirm Password">
                 <FormInput v-model="form.password_confirmation" name="password_confirm" type="password"
                     placeholder="••••••••" />
             </FormField>
-            <button
-                class="w-full cursor-pointer bg-blue dark:bg-yellow dark:text-black hover:scale-105 transition-all duration-150 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white"
-                type="submit" :disabled="form.processing">
-                Create Account
-            </button>
+            <FormButton>Register</FormButton>
         </FormComponent>
     </section>
 
