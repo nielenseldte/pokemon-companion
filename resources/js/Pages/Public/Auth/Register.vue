@@ -20,7 +20,7 @@ let submit = () => {
     <section class="flex items-center justify-center min-h-screen dark:bg-gray-800 bg-gray-200">
         <FormComponent @submit.prevent="submit" heading="Create your account">
             <FormField :error="form.errors.username" for="username" label="Username">
-                <FormInput v-model="form.username" name="username" type="text" />
+                <FormInput v-model="form.username" name="username" type="text" placeholder="username" />
             </FormField>
             <FormField :error="form.errors.email" for="email" label="Email">
                 <FormInput v-model="form.email" name="email" type="email" placeholder="example@email.com" />
@@ -33,6 +33,9 @@ let submit = () => {
                     placeholder="••••••••" />
             </FormField>
             <FormButton>Register</FormButton>
+            <div class="text-blue dark:text-yellow text-center">
+                <span>Have an account?</span><Link class="ml-1.5 text-pink hover:underline" href="/login">Log in</Link>
+            </div>
         </FormComponent>
     </section>
 

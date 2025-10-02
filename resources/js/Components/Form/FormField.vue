@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 <template>
     <div>
-        <label :for="for" class="dark:text-yellow block mb-2 text-sm sm:text-lg font-medium">
+        <label :for="for" class="text-blue dark:text-yellow block mb-2 text-sm sm:text-lg font-medium">
             {{ label }}
         </label>
         <slot />

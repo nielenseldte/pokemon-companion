@@ -17,10 +17,5 @@ const username = computed(() => {
 
 <template>
         <h1>Hello from the home page, {{ username }}</h1>
-        <div class="flex items-end min-h-screen">
-            <div class="flex-col space-y-2">
-                <p>The current time is {{ time }}</p>
-                <Link preserve-scroll class="text-blue" href="/home">Refresh</Link>
-            </div>
-        </div>
+        
 </template>
