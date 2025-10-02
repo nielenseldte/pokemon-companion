@@ -13,7 +13,7 @@ import Footer from './Footer.vue';
                 <slot />
             </section>
         </main>
-        <footer class="dark:text-yellow text-blue bg-gray-800">
+        <footer class="dark:text-yellow dark:bg-gray-800">
             <Footer />
         </footer>
     </div>

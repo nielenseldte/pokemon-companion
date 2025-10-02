@@ -11,9 +11,9 @@
                 </svg>
                 <span class="ml-3 text-xl">Pokémon Companion</span>
             </a>
-            <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">©
+            <p class="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">©
                 2025 By Nielen Seldte —
-                <a href="https://github.com/nielenseldte" class="text-gray-500 ml-1" target="_blank"
+                <a href="https://github.com/nielenseldte" class="ml-1" target="_blank"
                     rel="noopener noreferrer">GitHub @nielenseldte</a>
             </p>
         </div>
