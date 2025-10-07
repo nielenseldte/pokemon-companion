@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionController;
+use App\Models\Card;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
