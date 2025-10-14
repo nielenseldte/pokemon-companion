@@ -1,32 +1,29 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionController;
-use App\Models\Card;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return inertia('Public/Welcome');
 });
 
-Route::get('/home', function() {
-    //sleep(2);
-    return inertia('Home', [
-        'time' => now()->toTimeString()
-    ]);
-})->name('home');
+Route::middleware('auth')->group( function() {
+    Route::get('/home', function () {
+        return inertia('Home');
+    })->name('home');
 
-Route::get('/my-cards', function() {
-    return inertia('MyCards');
+    Route::resource('cards', UserCardController::class);
+
+    Route::resource('teams', TeamController::class);
+
+    Route::resource('allcards', CardController::class)->parameters(['allcards' => 'card']);
 });
 
-Route::get('/my-teams', function() {
-    return inertia('MyTeams');
-});
 
-Route::get('/all-cards', function() {
-    return inertia('AllCards');
-});
 
 //Registration
 Route::get('/register' ,[RegistrationController::class, 'create'])->name('register');

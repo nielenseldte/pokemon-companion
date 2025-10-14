@@ -24,7 +24,7 @@ let submit = () => {
             <FormField :error="form.errors.password" for="password" label="Password">
                 <FormInput v-model="form.password" name="password" type="password" />
             </FormField>
-            <FormButton>Log In</FormButton>
+            <FormButton :disabled="form.processing">Log In</FormButton>
             <div class="text-blue dark:text-yellow text-center">
                 <span>Don't have an account?</span>
                 <Link class="ml-1.5 text-pink hover:underline" href="/register">Register</Link>

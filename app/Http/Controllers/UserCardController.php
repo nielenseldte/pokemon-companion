@@ -11,7 +11,7 @@ class UserCardController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('UserCards/Index');
     }
 
     /**

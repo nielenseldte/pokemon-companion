@@ -5,7 +5,7 @@ import Footer from './Footer.vue';
 
 <template>
     <div class="flex flex-col min-h-screen">
-        <header class="flex py-5 px-1 bg-yellow w-full">
+        <header class="flex py-3.5 px-1 bg-yellow w-full">
             <Nav />
         </header>
         <main class="dark:bg-gray-800 dark:text-yellow p-6 flex-1">

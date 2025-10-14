@@ -32,7 +32,7 @@ let submit = () => {
                 <FormInput v-model="form.password_confirmation" name="password_confirm" type="password"
                     placeholder="••••••••" />
             </FormField>
-            <FormButton>Register</FormButton>
+            <FormButton :disabled="form.processing">Register</FormButton>
             <div class="text-blue dark:text-yellow text-center">
                 <span>Have an account?</span><Link class="ml-1.5 text-pink hover:underline" href="/login">Log in</Link>
             </div>

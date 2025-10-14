@@ -6,9 +6,9 @@ import { Link } from '@inertiajs/vue3';
     <nav class="pl-4 pr-4 flex justify-between text-xl flex-1 flex-wrap">
         <section class="flex flex-wrap justify-start space-x-5">
             <NavLink href="/home" :active="$page.component == 'Home'">Home</NavLink>
-            <NavLink href="/my-cards" :active="$page.component == 'MyCards'">My Cards</NavLink>
-            <NavLink href="/my-teams" :active="$page.component == 'MyTeams'">My Teams</NavLink>
-            <NavLink href="/all-cards" :active="$page.component == 'AllCards'">All Cards</NavLink>
+            <NavLink href="/cards" :active="$page.component == 'UserCards/Index'">My Cards</NavLink>
+            <NavLink href="/teams" :active="$page.component == 'Teams/Index'">My Teams</NavLink>
+            <NavLink href="/allcards" :active="$page.component == 'Cards/Index'">All Cards</NavLink>
         </section>
         <section class="flex">
             <Link method="post" href="/logout"
