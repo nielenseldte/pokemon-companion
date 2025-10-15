@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -11,7 +12,20 @@ class CardController extends Controller
      */
     public function index()
     {
-        return inertia('Cards/Index');
+        $cards = Card::query()
+            ->when(request()->input('search'), function ($query, $search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate(8)
+            ->withQueryString()
+            ->through(fn($card) => [
+            'id' => $card->id,
+            'images' => $card->images
+        ]);
+        return inertia('Cards/Index', [
+            'cards' => $cards,
+            'filters' => request()->only(['search'])
+        ]);
     }
 
     /**
@@ -33,9 +47,9 @@ class CardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Card $card)
     {
-        //
+        dd($card->name);
     }
 
     /**
