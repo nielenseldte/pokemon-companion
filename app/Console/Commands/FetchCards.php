@@ -69,6 +69,7 @@ class FetchCards extends Command
                 Card::updateOrCreate(
                     ['card_id' => $card['id']],
                     [
+                        //TODO: update to this -> 'name' => Arr::get($card, 'name', 'none')
                         'name' => $card['name'] ?? 'NoName',
                         'hp' => intval($card['hp']) ?? 0,
                         'total_damage' => $damage,

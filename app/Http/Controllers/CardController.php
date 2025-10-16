@@ -49,7 +49,9 @@ class CardController extends Controller
      */
     public function show(Card $card)
     {
-        dd($card->name);
+        return inertia('Cards/Show', [
+            'card' => $card
+        ]);
     }
 
     /**
