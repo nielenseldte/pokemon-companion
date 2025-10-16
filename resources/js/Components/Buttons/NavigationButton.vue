@@ -9,7 +9,7 @@ defineProps({
 </script>
 <template>
     <Link :href="href"
-        class="rounded-md bg-white px-3 py-1 transition-all duration-200 cursor-pointer hover:scale-105 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:text-white">
+        class="bg-pink px-3 py-0.5 font-semibold transition-all duration-200 cursor-pointer border-t-3 border-b-3 border-black hover:bg-blue hover:text-white">
         <slot />
     </Link>
 </template>

@@ -16,10 +16,10 @@ import NavigationButton from '../../Components/Buttons/NavigationButton.vue';
             </section>
             <section class="flex items-center justify-evenly">
                 <NavigationButton href="/register">Sign Up</NavigationButton>
-                <Link href="/login"
-                    class="rounded-md bg-white px-3 py-1 transition-all duration-200 cursor-pointer hover:scale-105 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:text-white">
+                <NavigationButton href="/login"
+                    >
                     Log In
-                </Link>
+                </NavigationButton>
             </section>
         </section>
     </main>

@@ -1,9 +1,10 @@
 <script setup>
 import NavLink from '../Components/NavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import BackButton from '../Components/Buttons/BackButton.vue';
 </script>
 <template>
-    <nav class="pl-4 pr-4 flex justify-between text-xl flex-1 flex-wrap">
+    <nav v-if="$page.component !== 'Cards/Show'" class="pl-4 pr-4 flex justify-between text-xl flex-1 flex-wrap">
         <section class="flex flex-wrap justify-start space-x-5">
             <NavLink href="/home" :active="$page.component == 'Home'">Home</NavLink>
             <NavLink href="/cards" :active="$page.component == 'UserCards/Index'">My Cards</NavLink>
@@ -16,5 +17,8 @@ import { Link } from '@inertiajs/vue3';
             Log Out
             </Link>
         </section>
+    </nav>
+    <nav v-else class="pl-4 pr-4 flex justify-start text-xl flex-1 flex-wrap">
+        <BackButton>Back</BackButton>
     </nav>
 </template>
