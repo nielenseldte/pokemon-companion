@@ -13,7 +13,7 @@ let scrollInterval = null;
 function scrollLeft() {
     scrollInterval = setInterval(() => {
         scrollContainer.value.scrollBy({
-            left: -50,
+            left: -7,
             behavior: 'auto'
         });
     }, 20);
@@ -22,7 +22,7 @@ function scrollLeft() {
 function scrollRight() {
     scrollInterval = setInterval(() => {
         scrollContainer.value.scrollBy({
-            left: 50,
+            left: 7,
             behavior: 'auto'
         });
     }, 20);

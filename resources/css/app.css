@@ -18,7 +18,7 @@
 @layer components {
   .scrollable-hidden {
     overflow-x: auto;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
