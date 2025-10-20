@@ -15,6 +15,19 @@
     --color-yellow: #E8F044;
 }
 
+@layer components {
+  .scrollable-hidden {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollable-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 :root {
     font-size: 20px;
 }
