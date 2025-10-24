@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return inertia('Public/Welcome');
 });
+Route::get('/teams/test', function () {
+    return inertia('Teams/Show');
+});
 
 Route::middleware('auth')->group( function() {
     Route::get('/home', function () {
@@ -22,6 +25,7 @@ Route::middleware('auth')->group( function() {
 
     Route::resource('allcards', CardController::class)->parameters(['allcards' => 'card']);
 });
+
 
 
 

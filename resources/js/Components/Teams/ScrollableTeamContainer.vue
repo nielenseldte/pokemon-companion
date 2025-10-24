@@ -39,7 +39,7 @@ function stopScroll() {
     <div class="border-8 bg-purple border-yellow">
         <div class="flex items-center justify-between mt-2 px-3">
             <p class="text-xl">{{ teamName }}</p>
-            <NavigationButton href="#">View Details</NavigationButton>
+            <NavigationButton href="/teams/test">View Details</NavigationButton>
         </div>
         <div ref="scrollContainer" class="flex items-center space-x-3 p-3 scrollable-hidden pb-1">
             <slot />
