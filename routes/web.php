@@ -35,6 +35,6 @@ Route::post('/register', [RegistrationController::class, 'store']);
 
 //Session handling
 Route::get('/login', [SessionController::class, 'create'])->name('login');
-Route::post('login', [SessionController::class, 'store']);
+Route::post('login', [SessionController::class, 'store'])->middleware('throttle:5,1');
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 

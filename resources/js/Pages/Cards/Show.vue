@@ -1,5 +1,6 @@
 <script setup>
 import CardContainer from '../../Components/Cards/CardContainer.vue';
+import CardActionButton from '../../Components/Buttons/CardActionButton.vue';
 
 const props = defineProps({
     card: Object
@@ -23,15 +24,15 @@ defineOptions({
                 <div>
                     <p class="font-semibold mr-4 inline">Combined Attack Damage :</p> <span class="text-pink">{{
                         card.total_damage
-                    }}</span>
+                        }}</span>
                 </div>
                 <div>
                     <p class="font-semibold mr-4 inline">Highest Value :</p> <span class="text-pink">${{ card.value.high
-                    }}</span>
+                        }}</span>
                 </div>
                 <div>
                     <p class="font-semibold mr-4 inline">Lowest Value :</p> <span class="text-pink">${{ card.value.low
-                    }}</span>
+                        }}</span>
                 </div>
                 <div>
                     <p class="font-semibold mr-4 inline">Current Value :</p> <span class="text-pink">${{
@@ -45,8 +46,13 @@ defineOptions({
                 </div>
                 <div>
                     <a :href="card.price_url" target="_blank"
-                        class="text-blue text-md italic underline hover:text-pink">Check it out on cardmarket</a>
+                        class="text-blue-500 text-md italic underline hover:text-pink">Check it out on cardmarket</a>
                 </div>
+            </div>
+            <div class="flex justify-center space-x-8">
+                <CardActionButton type="inventory">Add to Inventory</CardActionButton>
+                <CardActionButton type="wishlist">Add to Wishlist</CardActionButton>
+
             </div>
         </section>
     </div>
