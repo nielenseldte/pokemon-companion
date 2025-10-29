@@ -52,7 +52,6 @@ defineOptions({
             <div class="flex justify-center space-x-8">
                 <CardActionButton type="inventory">Add to Inventory</CardActionButton>
                 <CardActionButton type="wishlist">Add to Wishlist</CardActionButton>
-
             </div>
         </section>
     </div>
