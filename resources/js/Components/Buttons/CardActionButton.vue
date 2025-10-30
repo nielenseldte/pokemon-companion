@@ -30,11 +30,13 @@ const icon = computed(() => {
 <template>
     <button
         class="cursor-pointer text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-105 shadow-lg"
-        :v-bind="$attrs" :class="type == 'replace' ? 'bg-blue-500 hover:bg-blue-600' : '',
-            type == 'remove' ? 'bg-red-500 hover:bg-red-600' : '',
-            type == 'wishlist' ? 'bg-yellow-500 hover:bg-yellow-600' : '',
-            type == 'inventory' ? 'bg-green-500 hover:bg-green-600' : ''
-            ">
+        :v-bind="$attrs" 
+        :class="{
+                'bg-blue-500 hover:bg-blue-600': type == 'replace',
+                'bg-red-500 hover:bg-red-600': type == 'remove',
+                'bg-yellow-500 hover:bg-yellow-600': type == 'wishlist',
+                'bg-green-500 hover:bg-green-600' : type == 'inventory'
+        }">
         <component :is="icon" />
         <span class="font-medium text-sm"><slot /></span>
     </button>
