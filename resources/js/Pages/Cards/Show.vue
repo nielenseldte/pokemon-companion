@@ -3,7 +3,8 @@ import CardContainer from '../../Components/Cards/CardContainer.vue';
 import CardActionButton from '../../Components/Buttons/CardActionButton.vue';
 
 const props = defineProps({
-    card: Object
+    card: Object,
+    isOwned: Boolean
 });
 defineOptions({
     layout: null
@@ -50,7 +51,7 @@ defineOptions({
                 </div>
             </div>
             <div class="flex justify-center space-x-8">
-                <CardActionButton :endpoint="`/allcards/${card.id}/inventory`" method="post" type="inventory">Add to Inventory</CardActionButton>
+                <CardActionButton :endpoint="`/allcards/${card.id}/inventory`" method="post" :type="isOwned ? 'remove_from_inventory' : 'inventory'">{{ isOwned ? 'Remove from Inventory' : 'Add to Inventory'  }}</CardActionButton>
                 
                 <CardActionButton :endpoint="`/allcards/${card.id}/wishlist`" method="post" type="wishlist">Add to Wishlist</CardActionButton>
             

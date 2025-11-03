@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Card\AddCardToInventoryAction;
 use App\Models\Card;
-use App\Models\UserCard;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CardController extends Controller
 {
@@ -33,9 +32,9 @@ class CardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function inventory(Card $card, AddCardToInventoryAction $addCardToInventoryAction)
+    public function inventory(Card $card, AddCardToInventoryAction $addCardToInventory)
     {
-        $addCardToInventoryAction->perform($card->id);
+        $addCardToInventory->perform($card->id);
     }
 
     public function wishlist(Card $card)
@@ -48,8 +47,15 @@ class CardController extends Controller
      */
     public function show(Card $card)
     {
+        $user = Auth::user();
+
+        $userCards = $user->userCards->pluck('card_id')->toArray();
+        
+        $isOwned = in_array($card->id, $userCards);
+
         return inertia('Cards/Show', [
-            'card' => $card
+            'card' => $card,
+            'isOwned' => $isOwned
         ]);
     }
 

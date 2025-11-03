@@ -4,11 +4,12 @@ import Inventory from '../ButtonIcons/Inventory.vue';
 import Remove from '../ButtonIcons/Remove.vue';
 import Replace from '../ButtonIcons/Replace.vue';
 import Wishlist from '../ButtonIcons/Wishlist.vue';
+import RemoveFromInventory from '../ButtonIcons/RemoveFromInventory.vue';
 const props = defineProps({
     type: {
         required: true,
         type: String,
-        validator: value => ['replace', 'remove', 'wishlist', 'inventory'].includes(value)
+        validator: value => ['replace', 'remove', 'wishlist', 'inventory', 'remove_from_inventory'].includes(value)
     },
     endpoint: {
         required: true,
@@ -26,6 +27,8 @@ const icon = computed(() => {
             return Wishlist;
         case 'inventory':
             return Inventory;
+        case 'remove_from_inventory':
+            return RemoveFromInventory;
         default:
             return null;
     }
@@ -38,9 +41,10 @@ const icon = computed(() => {
         :v-bind="$attrs" 
         :class="{
                 'bg-blue-500 hover:bg-blue-600': type == 'replace',
-                'bg-red-500 hover:bg-red-600': type == 'remove',
+                'bg-red-500 hover:bg-red-600': type == 'remove' || type == 'remove_from_inventory',
                 'bg-yellow-500 hover:bg-yellow-600': type == 'wishlist',
-                'bg-green-500 hover:bg-green-600' : type == 'inventory'
+                'bg-green-500 hover:bg-green-600' : type == 'inventory',
+                
         }">
         <component :is="icon" />
         <span class="font-medium text-sm"><slot /></span>
