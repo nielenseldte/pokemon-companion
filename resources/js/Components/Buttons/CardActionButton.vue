@@ -9,6 +9,10 @@ const props = defineProps({
         required: true,
         type: String,
         validator: value => ['replace', 'remove', 'wishlist', 'inventory'].includes(value)
+    },
+    endpoint: {
+        required: true,
+        type: String
     }
 });
 
@@ -28,7 +32,8 @@ const icon = computed(() => {
 });
 </script>
 <template>
-    <button
+    <Link
+        :href="endpoint"
         class="cursor-pointer text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-105 shadow-lg"
         :v-bind="$attrs" 
         :class="{
@@ -39,5 +44,5 @@ const icon = computed(() => {
         }">
         <component :is="icon" />
         <span class="font-medium text-sm"><slot /></span>
-    </button>
+    </Link>
 </template>

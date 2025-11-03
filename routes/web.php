@@ -23,7 +23,9 @@ Route::middleware('auth')->group( function() {
 
     Route::resource('teams', TeamController::class);
 
-    Route::resource('allcards', CardController::class)->parameters(['allcards' => 'card']);
+    Route::resource('allcards', CardController::class)->only(['index', 'show'])->parameters(['allcards' => 'card']);
+    Route::post('allcards/{card}/inventory', [CardController::class, 'inventory'])->name('allcards.inventory');
+    Route::post('allcards/{card}/wishlist', [CardController::class, 'wishlist'])->name('allcards.wishlist');
 });
 
 

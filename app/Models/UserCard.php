@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserCard extends Model
 {
+    protected $table = 'user_cards';
+    protected $fillable = ['user_id', 'card_id'];
+
+    
     public function card()
     {
         return Card::find($this->card_id);

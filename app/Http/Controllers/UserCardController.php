@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserCardController extends Controller
 {
@@ -11,15 +13,12 @@ class UserCardController extends Controller
      */
     public function index()
     {
-        return inertia('UserCards/Index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $user = Auth::user();
+        $userCardIds = $user->userCards->pluck('card_id')->toArray();
+        $userCards = Card::whereIn('_id', $userCardIds)->get();
+        return inertia('UserCards/Index', [
+            'cards' => $userCards
+        ]);
     }
 
     /**
@@ -27,29 +26,13 @@ class UserCardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
     {
         //
     }

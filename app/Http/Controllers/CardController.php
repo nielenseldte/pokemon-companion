@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Card\AddCardToInventoryAction;
 use App\Models\Card;
+use App\Models\UserCard;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -29,19 +31,16 @@ class CardController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function inventory(Card $card, AddCardToInventoryAction $addCardToInventoryAction)
     {
-        //
+        $addCardToInventoryAction->perform($card->id);
+    }
+
+    public function wishlist(Card $card)
+    {
+        dd($card->id);
     }
 
     /**
@@ -54,21 +53,6 @@ class CardController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

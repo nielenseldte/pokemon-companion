@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeamCard extends Model
 {
+    protected $table = 'team_cards';
+    protected $fillable = ['team_id', 'user_cards_id', 'slot'];
     public function userCard(): BelongsTo
     {
         return $this->belongsTo(UserCard::class);

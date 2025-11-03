@@ -50,8 +50,10 @@ defineOptions({
                 </div>
             </div>
             <div class="flex justify-center space-x-8">
-                <CardActionButton type="inventory">Add to Inventory</CardActionButton>
-                <CardActionButton type="wishlist">Add to Wishlist</CardActionButton>
+                <CardActionButton :endpoint="`/allcards/${card.id}/inventory`" method="post" type="inventory">Add to Inventory</CardActionButton>
+                
+                <CardActionButton :endpoint="`/allcards/${card.id}/wishlist`" method="post" type="wishlist">Add to Wishlist</CardActionButton>
+            
             </div>
         </section>
     </div>

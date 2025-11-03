@@ -1,5 +1,4 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
 import NavigationButton from '../../Components/Buttons/NavigationButton.vue';
 </script>
 
@@ -10,7 +9,7 @@ import NavigationButton from '../../Components/Buttons/NavigationButton.vue';
         </div>
 
         <section
-            class="flex flex-col gap-8 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-lg px-4 py-7 w-full max-w-sm shadow-xl shadow-yellow-800/50 z-10">
+            class="flex flex-col gap-8 bg-linear-to-br from-yellow-300 to-orange-400 rounded-lg px-4 py-7 w-full max-w-sm shadow-xl shadow-yellow-800/50 z-10">
             <section class="w-full mb-4 text-center">
                 <h1 class="text-3xl">Welcome to Pokémon Companion!</h1>
             </section>
