@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Card\AddCardToInventoryAction;
 use App\Models\Card;
 use Illuminate\Support\Facades\Auth;
+use App\Actions\Card\AddCardToInventoryAction;
+use App\Actions\Card\RemoveCardFromInventoryAction;
 
 class CardController extends Controller
 {
@@ -32,16 +33,25 @@ class CardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function inventory(Card $card, AddCardToInventoryAction $addCardToInventory)
+    public function AddToInventory(Card $card, AddCardToInventoryAction $addCardToInventory)
     {
         $addCardToInventory->perform($card->id);
     }
 
-    public function wishlist(Card $card)
+    public function RemoveFromInventory(Card $card, RemoveCardFromInventoryAction $removeCardFromInventory)
+    {
+        $removeCardFromInventory->perform($card->id);
+    }
+
+    public function AddToWishlist(Card $card)
     {
         dd($card->id);
     }
 
+    public function RemoveFromWishlist(Card $card)
+    {
+        dd($card->id);
+    }
     /**
      * Display the specified resource.
      */
@@ -59,12 +69,4 @@ class CardController extends Controller
         ]);
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

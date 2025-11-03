@@ -51,9 +51,9 @@ defineOptions({
                 </div>
             </div>
             <div class="flex justify-center space-x-8">
-                <CardActionButton :endpoint="`/allcards/${card.id}/inventory`" method="post" :type="isOwned ? 'remove_from_inventory' : 'inventory'">{{ isOwned ? 'Remove from Inventory' : 'Add to Inventory'  }}</CardActionButton>
+                <CardActionButton :endpoint="`/allcards/${card.id}/inventory`" :method="isOwned ? 'delete' : 'post'" :type="isOwned ? 'remove_from_inventory' : 'inventory'">{{ isOwned ? 'Remove from Inventory' : 'Add to Inventory'  }}</CardActionButton>
                 
-                <CardActionButton :endpoint="`/allcards/${card.id}/wishlist`" method="post" type="wishlist">Add to Wishlist</CardActionButton>
+                <CardActionButton :endpoint="`/allcards/${card.id}`" method="post" type="wishlist">Add to Wishlist</CardActionButton>
             
             </div>
         </section>

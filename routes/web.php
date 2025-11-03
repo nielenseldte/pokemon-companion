@@ -24,12 +24,11 @@ Route::middleware('auth')->group( function() {
     Route::resource('teams', TeamController::class);
 
     Route::resource('allcards', CardController::class)->only(['index', 'show'])->parameters(['allcards' => 'card']);
-    Route::post('allcards/{card}/inventory', [CardController::class, 'inventory'])->name('allcards.inventory');
-    Route::post('allcards/{card}/wishlist', [CardController::class, 'wishlist'])->name('allcards.wishlist');
+    Route::post('allcards/{card}/inventory', [CardController::class, 'addToInventory'])->name('allcards.addToInventory');
+    Route::delete('allcards/{card}/inventory', [CardController::class, 'removeFromInventory'])->name('allcards.removeFromInventory');
+    Route::post('allcards/{card}/wishlist', [CardController::class, 'addToWishlist'])->name('allcards.addToWishlist');
+    Route::delete('allcards/{card}/wishlist', [CardController::class, 'removeFromWishlist'])->name('allcards.removeFromWishlist');
 });
-
-
-
 
 //Registration
 Route::get('/register' ,[RegistrationController::class, 'create'])->name('register');
