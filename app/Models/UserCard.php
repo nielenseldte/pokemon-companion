@@ -10,14 +10,14 @@ class UserCard extends Model
     protected $table = 'user_cards';
     protected $fillable = ['user_id', 'card_id'];
 
-    
-    public function card()
-    {
-        return Card::find($this->card_id);
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function card()
+    {
+        return Card::where('_id', $this->card_id)->first();
+    }
+
 }

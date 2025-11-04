@@ -19,11 +19,10 @@ Route::middleware('auth')->group( function() {
         return inertia('Home');
     })->name('home');
 
-    Route::resource('cards', UserCardController::class);
-
     Route::resource('teams', TeamController::class);
 
     Route::resource('allcards', CardController::class)->only(['index', 'show'])->parameters(['allcards' => 'card']);
+    Route::get('/cards', [CardController::class, 'userCardsIndex']);
     Route::post('allcards/{card}/inventory', [CardController::class, 'addToInventory'])->name('allcards.addToInventory');
     Route::delete('allcards/{card}/inventory', [CardController::class, 'removeFromInventory'])->name('allcards.removeFromInventory');
     Route::post('allcards/{card}/wishlist', [CardController::class, 'addToWishlist'])->name('allcards.addToWishlist');

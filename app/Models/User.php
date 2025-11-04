@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use MongoDB\Laravel\Eloquent\Casts\ObjectId;
 
 class User extends Authenticatable
 {
@@ -55,5 +56,17 @@ class User extends Authenticatable
     public function userCards(): HasMany
     {
         return $this->hasMany(UserCard::class);
+    }
+
+    public function getCardsAttribute()
+    {
+        $this->cards()->get();
+    }
+
+    public function cards()
+    {
+        $cardIds = $this->userCards->pluck('card_id')->toArray();
+
+        return Card::whereIn('_id', $cardIds);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Card\AddCardToInventoryAction;
 use App\Actions\Card\RemoveCardFromInventoryAction;
@@ -16,7 +17,7 @@ class CardController extends Controller
     {
         $cards = Card::query()
             ->when(request()->input('search'), function ($query, $search) {
-                $query->where('name', 'like', '%' . $search . '%');
+                $query->where('name', 'like', "%$search%");
             })
             ->paginate(8)
             ->withQueryString()
@@ -26,6 +27,25 @@ class CardController extends Controller
         ]);
         return inertia('Cards/Index', [
             'cards' => $cards,
+            'filters' => request()->only(['search'])
+        ]);
+    }
+
+    public function userCardsIndex()
+    {
+            $user = Auth::user();
+            $userCards = $user->cards()
+            ->when(request()->input('search'), function ($query, $search) {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->paginate(8)
+            ->withQueryString()
+            ->through(fn($userCard) => [
+                'id' => $userCard->id,
+                'images' => $userCard->images
+            ]);
+        return inertia('UserCards/Index', [
+            'cards' => $userCards,
             'filters' => request()->only(['search'])
         ]);
     }
@@ -45,11 +65,13 @@ class CardController extends Controller
 
     public function AddToWishlist(Card $card)
     {
+        //TODO
         dd($card->id);
     }
 
     public function RemoveFromWishlist(Card $card)
     {
+        //TODO
         dd($card->id);
     }
     /**
@@ -58,10 +80,8 @@ class CardController extends Controller
     public function show(Card $card)
     {
         $user = Auth::user();
-
-        $userCards = $user->userCards->pluck('card_id')->toArray();
         
-        $isOwned = in_array($card->id, $userCards);
+        $isOwned = $user->userCards()->where('card_id', $card->id)->exists();
 
         return inertia('Cards/Show', [
             'card' => $card,
