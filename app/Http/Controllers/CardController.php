@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Card\AddCardToInventoryAction;
 use App\Actions\Card\RemoveCardFromInventoryAction;
