@@ -4,7 +4,6 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\UserCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

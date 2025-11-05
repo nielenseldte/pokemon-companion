@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(UserCard::class);
     }
 
+    public function userWishlist(): HasMany
+    {
+        return $this->hasMany(UserWishlist::class);
+    }
+
     public function getCardsAttribute()
     {
         $this->cards()->get();
