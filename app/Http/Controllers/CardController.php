@@ -5,44 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Card\AddCardToInventoryAction;
+use App\Actions\Card\GetCardsAction;
 use App\Actions\Card\RemoveCardFromInventoryAction;
 
 class CardController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all cards in the database.
      */
-    public function index()
+    public function index(GetCardsAction $getCards)
     {
-        $cards = Card::query()
-            ->when(request()->input('search'), function ($query, $search) {
-                $query->where('name', 'like', "%$search%");
-            })
-            ->paginate(8)
-            ->withQueryString()
-            ->through(fn($card) => [
-            'id' => $card->id,
-            'images' => $card->images
-        ]);
+        $cards = $getCards->perform(Card::query());
         return inertia('Cards/Index', [
             'cards' => $cards,
             'filters' => request()->only(['search'])
         ]);
     }
 
-    public function userCardsIndex()
+    /**
+    *Display a user's cards to them
+    */
+    public function userCardsIndex(GetCardsAction $getCards)
     {
             $user = Auth::user();
-            $userCards = $user->cards()
-            ->when(request()->input('search'), function ($query, $search) {
-                $query->where('name', 'like', "%$search%");
-            })
-            ->paginate(8)
-            ->withQueryString()
-            ->through(fn($userCard) => [
-                'id' => $userCard->id,
-                'images' => $userCard->images
-            ]);
+            $userCards = $getCards->perform($user->cards());
         return inertia('UserCards/Index', [
             'cards' => $userCards,
             'filters' => request()->only(['search'])
