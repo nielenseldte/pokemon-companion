@@ -9,7 +9,8 @@ import { ref, watch } from 'vue';
 
 let props = defineProps({
         cards: Object,
-        filters: Object
+        filters: Object,
+        ownedCardIds: Array
 })
 
 let search = ref(props.filters.search);
@@ -31,7 +32,7 @@ watch(search, value => {
         </section>
 
         <div class="grid grid-cols-4 gap-5">
-                <CardContainer v-for="card in cards.data" :key="card.id" :image-url="card.images.large" :cardId="card.id" />
+                <CardContainer v-for="card in cards.data" :key="card.id" :image-url="card.images.large" :cardId="card.id" :owned="ownedCardIds.includes(card.id)" />
         </div>
         <div class="flex items-center justify-center mt-7">
                 <Paginator :links="cards.links" />

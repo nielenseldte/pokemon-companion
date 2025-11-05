@@ -15,10 +15,13 @@ class CardController extends Controller
      */
     public function index(GetCardsAction $getCards)
     {
+        $user = Auth::user();
         $cards = $getCards->perform(Card::query());
+        $ownedCardIds = $user->userCards->pluck('card_id')->toArray();
         return inertia('Cards/Index', [
             'cards' => $cards,
-            'filters' => request()->only(['search'])
+            'filters' => request()->only(['search']),
+            'ownedCardIds' => $ownedCardIds
         ]);
     }
 
