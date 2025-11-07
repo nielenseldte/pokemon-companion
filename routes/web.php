@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +38,10 @@ Route::post('/register', [RegistrationController::class, 'store']);
 Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('login', [SessionController::class, 'store'])->middleware('throttle:5,1');
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+//Password Reset
+Route::get('/forgot-password', [ForgotPasswordController::class, 'create']);
+Route::post('/forgot-password', [ForgotPasswordController::class, 'store']);
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'store']);
 

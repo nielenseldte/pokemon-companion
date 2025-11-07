@@ -30,8 +30,8 @@ class CardController extends Controller
     */
     public function userCardsIndex(GetCardsAction $getCards)
     {
-            $user = Auth::user();
-            $userCards = $getCards->perform($user->cards());
+        $user = Auth::user();
+        $userCards = $getCards->perform($user->cards());
         return inertia('UserCards/Index', [
             'cards' => $userCards,
             'filters' => request()->only(['search'])

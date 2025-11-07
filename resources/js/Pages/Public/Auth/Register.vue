@@ -5,7 +5,7 @@ import FormInput from '../../../Components/Form/FormInput.vue';
 import FormButton from '../../../Components/Buttons/FormButton.vue';
 import {useForm} from '@inertiajs/vue3';
 
-let form = useForm({
+const form = useForm({
     username: '',
     email: '',
     password: '',

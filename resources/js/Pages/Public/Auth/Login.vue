@@ -5,7 +5,7 @@ import FormField from '../../../Components/Form/FormField.vue';
 import FormInput from '../../../Components/Form/FormInput.vue';
 import { useForm } from '@inertiajs/vue3';
 
-let form = useForm({
+const form = useForm({
     email: '',
     password: '',
 });
@@ -18,6 +18,9 @@ let submit = () => {
 <template>
     <section class="flex items-center justify-center min-h-screen dark:bg-gray-800 bg-gray-200">
         <FormComponent @submit.prevent="submit" heading="Log in to your account">
+            <div v-if="$page.props.flash.success" class="text-green-500">
+                {{ $page.props.flash.success }}
+            </div>
             <FormField :error="form.errors.email" for="email" label="Email">
                 <FormInput v-model="form.email" name="email" type="email" />
             </FormField>
@@ -30,7 +33,7 @@ let submit = () => {
                 <Link class="ml-1.5 text-pink hover:underline" href="/register">Register</Link>
             </div>
             <div class="text-blue-500 underline text-center">
-                <Link href="#">Forgot Password</Link>
+                <Link href="/forgot-password">Forgot Password</Link>
             </div>
         </FormComponent>
     </section>
