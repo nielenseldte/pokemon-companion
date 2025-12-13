@@ -14,7 +14,7 @@ const form = useForm({
 
 let submit = () => {
     form.post('/register');
-};
+}
 </script>
 <template>
     <section class="flex items-center justify-center min-h-screen dark:bg-gray-800 bg-gray-200">
