@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Card;
+use Illuminate\Support\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -61,22 +62,21 @@ class FetchCards extends Command
             $cards = array_filter($cards, fn($c) => ($c['supertype'] ?? '') === 'Pokémon');
 
             foreach ($cards as $card) {
-                $attacks = $card['attacks'] ?? [];
+                $attacks = Arr::get($card, 'attacks', []);
                 $damage = 0;
                 foreach ($attacks as $attack) {
-                    $damage += intval($attack['damage']) ?? 0;
+                    $damage += intval(Arr::get($attack, 'damage', 0));
                 }
                 Card::updateOrCreate(
-                    ['card_id' => $card['id']],
+                    ['card_id' => Arr::get($card, 'id')],
                     [
-                        //TODO: update to this -> 'name' => Arr::get($card, 'name', 'none')
-                        'name' => $card['name'] ?? 'NoName',
-                        'hp' => intval($card['hp']) ?? 0,
+                        'name' => Arr::get($card, 'name', 'N/A'),
+                        'hp' => intval(Arr::get($card, 'hp', 0)),
                         'total_damage' => $damage,
-                        'images' => $card['images'] ?? '',
-                        'value' => $card['tcgplayer']['prices']['holofoil'] ?? [],
-                        'average_sale_price' => $card['cardmarket']['prices']['averageSellPrice'] ?? 0,
-                        'price_url' => $card['cardmarket']['url'] ?? ''
+                        'images' => Arr::get($card, 'images', []),
+                        'value' => Arr::get($card, 'tcgplayer.prices.holofoil', []),
+                        'average_sale_price' => Arr::get($card, 'cardmarket.prices.averageSellPrice', 0),
+                        'price_url' => Arr::get($card, 'cardmarket.url', '#')
                     ]);
             }
 
