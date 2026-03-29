@@ -11,22 +11,26 @@ const form = useForm({
     teamname: ''
 });
 
+const emit = defineEmits(['close']);
+
 let submit = () => {
-    form.post('/teams/create');
+    form.post('/teams', {
+        onSuccess: () => {
+            form.reset();
+            emit('close');
+        }
+    });
 }
 </script>
 
 <template>
-    <Transition enter-from-class="opacity-0 scale-110" 
-                enter-to-class="opacity-100 scale-100" 
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0" 
-                enter-active-class="transition duration-300" 
-                leave-active-class="transition duration-100">
+    <Transition enter-from-class="opacity-0 scale-110" enter-to-class="opacity-100 scale-100"
+        leave-from-class="opacity-100" leave-to-class="opacity-0" enter-active-class="transition duration-300"
+        leave-active-class="transition duration-100">
         <div v-if="show" class="inset-0 fixed bg-black/60 grid place-items-center">
             <div class="p-1 min-w-1/5">
-                <FormComponent heading="Create a Team">
-                    <FormField for="teamname" label="Team Name">
+                <FormComponent @submit.prevent="submit" heading="Create a Team">
+                    <FormField :error="form.errors.teamname" for="teamname" label="Team Name">
                         <FormInput v-model="form.teamname" name="teamname" type="text" placeholder="Team A" />
                     </FormField>
                     <div class="flex items-center justify-between">

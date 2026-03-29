@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
@@ -15,11 +16,17 @@ class TeamController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a user team.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate(['teamname' => 'required|max:50']);
+
+        $user = Auth::user();
+
+        $user->teams()->create(['name' => $validated['teamname']]);
+
+        return redirect()->route('teams.index');
     }
 
     /**

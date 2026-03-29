@@ -26,8 +26,7 @@ watch(search, value => {
 <template>
         <section class="flex flex-1 justify-center mb-4">
                 <div>
-                        <SearchField name="search" id="search" v-model="search"
-                                placeholder="search your cards....." />
+                        <SearchField name="search" id="search" v-model="search" placeholder="search your cards....." />
                 </div>
         </section>
 

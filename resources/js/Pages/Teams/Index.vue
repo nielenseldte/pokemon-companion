@@ -10,7 +10,8 @@ let showModal = ref(false);
 
 <template>
         <div class="flex flex-1 justify-start mb-4">
-                <button class="bg-pink px-3 py-0.5 font-semibold transition-all duration-200 cursor-pointer border-t-3 border-b-3 border-black hover:bg-blue hover:text-white" @click="showModal = true">
+                <button class="bg-pink px-3 py-0.5 font-semibold transition-all duration-200 cursor-pointer border-t-3 border-b-3 border-black hover:bg-blue hover:text-white"
+                        @click="showModal = true">
                         <div class="flex items-center space-x-1">
                                 <p>Create Team</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
