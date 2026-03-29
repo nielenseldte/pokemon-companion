@@ -31,11 +31,14 @@ watch(search, value => {
                 </div>
         </section>
 
-        <div class="grid grid-cols-4 gap-5">
+        <div v-if="cards.data.length > 0" class="grid grid-cols-4 gap-5">
                 <CardContainer v-for="card in cards.data" :key="card.id" :image-url="card.images.large"
                         :cardId="card.id" />
         </div>
-        <div class="flex items-center justify-center mt-7">
+        <div v-else class="flex items-center justify-center h-screen text-2xl">
+                No cards found....
+        </div>
+        <div v-if="cards.data.length > 0" class="flex items-center justify-center mt-7">
                 <Paginator :links="cards.links" />
         </div>
 
