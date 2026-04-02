@@ -3,6 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "preinstall": "npm audit || exit 1",
         "build": "vite build",
         "dev": "vite"
     },
