@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\EmailDoesNotExistYet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +18,7 @@ class RegistrationController extends Controller
     {
         $credentials = $request->validate([
             'username' => ['required', 'unique:users,username'],
-            'email' => ['required', 'email', function($attribute, $value, $fail) {
-                $hash = hash('sha256', strtolower($value));
-                if (User::where('email_index_hash', $hash)->exists()) {
-                    $fail("An account with this $attribute already exists");
-                }
-            }],
+            'email' => ['required', 'email', new EmailDoesNotExistYet],
             'password' => ['required', 'confirmed'],
         ]);
 
