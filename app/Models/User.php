@@ -77,6 +77,10 @@ class User extends Authenticatable
         return $this->userCards()->where('card_id', $card->id)->exists();
     }
 
+    public function hasCardInWishlist(Card $card) : bool {
+        return $this->userWishlist()->where('card_id', $card->id)->exists();
+    }
+
     public function ownedCardIds() : array {
         return $this->userCards()->pluck('card_id')->all();
     }
