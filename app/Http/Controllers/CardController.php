@@ -4,19 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use Illuminate\Support\Facades\Auth;
-use App\Actions\Card\AddCardToInventoryAction;
-use App\Actions\Card\GetCardsAction;
-use App\Actions\Card\RemoveCardFromInventoryAction;
+use App\Models\UserCard;
 
 class CardController extends Controller
 {
     /**
      * Display a listing of all cards in the database.
      */
-    public function index(GetCardsAction $getCards)
+    public function index()
     {
         $user = Auth::user();
-        $cards = $getCards->perform(Card::query());
+        $cards = Card::when(
+            request()->input('search'),
+            fn($query, $search) =>
+            $query->where('name', 'like', "%$search%")
+        )
+            ->paginate(8)
+            ->withQueryString()
+            ->through(fn($card) => [
+                'id' => $card->id,
+                'images' => $card->images
+            ]);
         $ownedCardIds = $user->userCards->pluck('card_id')->toArray();
         return inertia('Cards/Index', [
             'cards' => $cards,
@@ -28,10 +36,20 @@ class CardController extends Controller
     /**
     *Display a user's cards to them
     */
-    public function userCardsIndex(GetCardsAction $getCards)
+    public function userCardsIndex()
     {
         $user = Auth::user();
-        $userCards = $getCards->perform($user->cards());
+        $userCards = $user->cards()->when(
+            request()->input('search'),
+            fn($query, $search) =>
+            $query->where('name', 'like', "%$search%")
+        )
+            ->paginate(8)
+            ->withQueryString()
+            ->through(fn($card) => [
+                'id' => $card->id,
+                'images' => $card->images
+            ]);
         return inertia('UserCards/Index', [
             'cards' => $userCards,
             'filters' => request()->only(['search'])
@@ -41,14 +59,24 @@ class CardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function AddToInventory(Card $card, AddCardToInventoryAction $addCardToInventory)
+    public function AddToInventory(Card $card)
     {
-        $addCardToInventory->perform($card->id);
+        $userId = Auth::id();
+        $cardId = $card->id;
+
+        //create a link between the user and the card.
+        UserCard::create([
+            'user_id' => $userId,
+            'card_id' => (string )$cardId
+        ]);
     }
 
-    public function RemoveFromInventory(Card $card, RemoveCardFromInventoryAction $removeCardFromInventory)
+    public function RemoveFromInventory(Card $card)
     {
-        $removeCardFromInventory->perform($card->id);
+        $userId = Auth::id();
+        $cardId = $card->id;
+
+        UserCard::where('card_id', $cardId)->where('user_id', $userId)->delete();
     }
 
     public function AddToWishlist(Card $card)
