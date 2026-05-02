@@ -71,15 +71,13 @@ class User extends Authenticatable
         return $this->hasMany(UserWishlist::class);
     }
 
-    public function getCardsAttribute()
-    {
-        $this->cards()->get();
+    //Helpers
+
+    public function ownsCard(Card $card) : bool {
+        return $this->userCards()->where('card_id', $card->id)->exists();
     }
 
-    public function cards()
-    {
-        $cardIds = $this->userCards->pluck('card_id')->toArray();
-
-        return Card::whereIn('_id', $cardIds);
+    public function ownedCardIds() : array {
+        return $this->userCards()->pluck('card_id')->all();
     }
 }

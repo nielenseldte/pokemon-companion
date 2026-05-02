@@ -3,44 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
-use Illuminate\Support\Facades\Auth;
 use App\Models\UserCard;
+use App\Services\UserInventoryService;
+use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
     /**
      * Display a listing of all cards in the database.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        $cards = Card::when(
-            request()->input('search'),
-            fn($query, $search) =>
-            $query->where('name', 'like', "%$search%")
-        )
+        $cards = Card::
+            when(
+                $request->input('search'),
+                fn($query, $search) =>
+                $query->where('name', 'like', "%$search%")
+            )
             ->paginate(8)
             ->withQueryString()
             ->through(fn($card) => [
                 'id' => $card->id,
                 'images' => $card->images
             ]);
-        $ownedCardIds = $user->userCards->pluck('card_id')->toArray();
+        $ownedCardIds = $request->user()->ownedCardIds();
         return inertia('Cards/Index', [
             'cards' => $cards,
-            'filters' => request()->only(['search']),
+            'filters' => $request->only(['search']),
             'ownedCardIds' => $ownedCardIds
         ]);
     }
 
     /**
-    *Display a user's cards to them
-    */
-    public function userCardsIndex()
+     *Display a user's cards to them
+     */
+    public function userCardsIndex(Request $request, UserInventoryService $service)
     {
-        $user = Auth::user();
-        $userCards = $user->cards()->when(
-            request()->input('search'),
+        $userCards = $service->getCards($request->user())->when(
+            $request->input('search'),
             fn($query, $search) =>
             $query->where('name', 'like', "%$search%")
         )
@@ -52,28 +52,33 @@ class CardController extends Controller
             ]);
         return inertia('UserCards/Index', [
             'cards' => $userCards,
-            'filters' => request()->only(['search'])
+            'filters' => $request->only(['search'])
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function AddToInventory(Card $card)
+    public function AddToInventory(Request $request, Card $card)
     {
-        $userId = Auth::id();
+        $user = $request->user();
+        $userId = $user->id;
         $cardId = $card->id;
+
+        if ($user->ownsCard($card)) {
+            abort(409, 'Card already exists in inventory');
+        }
 
         //create a link between the user and the card.
         UserCard::create([
             'user_id' => $userId,
-            'card_id' => (string )$cardId
+            'card_id' => (string)$cardId
         ]);
     }
 
-    public function RemoveFromInventory(Card $card)
+    public function RemoveFromInventory(Request $request, Card $card)
     {
-        $userId = Auth::id();
+        $userId = $request->user()->id;
         $cardId = $card->id;
 
         UserCard::where('card_id', $cardId)->where('user_id', $userId)->delete();
@@ -93,16 +98,15 @@ class CardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Card $card)
+    public function show(Request $request, Card $card)
     {
-        $user = Auth::user();
-        
-        $isOwned = $user->userCards()->where('card_id', $card->id)->exists();
+        $user = $request->user();
+
+        $isOwned = $user->ownsCard($card);
 
         return inertia('Cards/Show', [
             'card' => $card,
             'isOwned' => $isOwned
         ]);
     }
-
 }
