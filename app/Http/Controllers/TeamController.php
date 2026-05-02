@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
@@ -22,7 +21,7 @@ class TeamController extends Controller
     {
         $validated = $request->validate(['teamname' => 'required|max:50']);
 
-        $user = Auth::user();
+        $user = $request->user();
 
         $user->teams()->create(['name' => $validated['teamname']]);
 
