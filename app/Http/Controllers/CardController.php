@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\UserCard;
+use App\Models\UserWishlist;
 use App\Services\UserInventoryService;
 use Illuminate\Http\Request;
 
@@ -84,16 +85,29 @@ class CardController extends Controller
         UserCard::where('card_id', $cardId)->where('user_id', $userId)->delete();
     }
 
-    public function AddToWishlist(Card $card)
+    public function AddToWishlist(Request $request, Card $card)
     {
-        //TODO
-        dd($card->id);
+        $user = $request->user();
+        $userId = $user->id;
+        $cardId = $card->id;
+
+        if ($user->hasCardInWishlist($card)) {
+            abort(409, 'Card already exists in wishlist');
+        }
+
+        //create a link between the user and the card.
+        UserWishlist::create([
+            'user_id' => $userId,
+            'card_id' => (string)$cardId
+        ]);
     }
 
-    public function RemoveFromWishlist(Card $card)
+    public function RemoveFromWishlist(Request $request, Card $card)
     {
-        //TODO
-        dd($card->id);
+        $userId = $request->user()->id;
+        $cardId = $card->id;
+
+        UserWishlist::where('card_id', $cardId)->where('user_id', $userId)->delete();
     }
     /**
      * Display the specified resource.
