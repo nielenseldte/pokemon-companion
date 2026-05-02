@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SessionController extends Controller
 {
@@ -21,7 +23,13 @@ class SessionController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($credentials)) {
+        //manual handling since I am now encrypting email addresses at rest
+        $hash = hash('sha256', strtolower($credentials['email']));
+        $user = User::where('email_index_hash', $hash)->first();
+
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            Auth::login($user, $request->boolean('remember'));
+
             $request->session()->regenerate();
             return redirect()->intended('home');
         } 

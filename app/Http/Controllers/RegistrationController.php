@@ -16,12 +16,15 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'username' => ['required', 'unique:users,username'],
+            'email' => ['required', 'email', function($attribute, $value, $fail) {
+                $hash = hash('sha256', strtolower($value));
+                if (User::where('email_index_hash', $hash)->exists()) {
+                    $fail("An account with this $attribute already exists");
+                }
+            }],
             'password' => ['required', 'confirmed'],
         ]);
-
-        $credentials['password'] = bcrypt($credentials['password']);
 
         $newUser = User::create($credentials);
 

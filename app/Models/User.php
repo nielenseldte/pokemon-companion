@@ -44,7 +44,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'email' => 'encrypted'
         ];
+    }
+
+    protected static function booted() {
+        static::saving(function($user) {
+            if ($user->isDirty('email')) {
+                $user->email_index_hash = hash('sha256', strtolower($user->email));
+            }
+        });
     }
 
     public function teams(): HasMany

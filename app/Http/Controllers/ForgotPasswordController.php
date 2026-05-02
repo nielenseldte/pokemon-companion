@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
@@ -18,16 +19,13 @@ class ForgotPasswordController extends Controller
             'email' => ['required', 'email']
         ]);
 
-        $status = Password::sendResetLink($request->only('email'));
+        $hash = hash('sha256', strtolower($request['email']));
+        $user = User::where('email_index_hash', $hash)->first();
 
-        if ($status === Password::RESET_LINK_SENT) {
-            return redirect()->back()->with([
-                'success' => __($status)
-            ]);
+        if ($user) {
+            Password::sendResetLink($request->only('email'));
         }
-
-        return redirect()->back()->withErrors([
-            'email' => __($status)
-        ]);
+        //for security reasons
+        return back()->with(['success' => 'Reset link sent if as user with that email exists.']);
     }
 }

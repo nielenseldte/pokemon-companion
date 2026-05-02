@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,6 +32,13 @@ class ResetPasswordController extends Controller
             'password' => ['required', 'confirmed'],
         ]);
 
+        $hash = hash('sha256', strtolower($request->email));
+        $user = User::where('email_index_hash', $hash)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'User not found.']);
+        }
+
         $status = Password::reset($request->only('email', 'password', 'password_confirmation', 'token'), function($user) use ($request) {
             $user->forceFill([
                 'password' => Hash::make($request->password),
@@ -40,12 +48,8 @@ class ResetPasswordController extends Controller
             //event(new PasswordReset($user)); Later if I start sending a confirmation email
         });
 
-        if ($status === Password::PASSWORD_RESET) {
-            return redirect()->route('login')->with('success', __($status));
-        }
-
-        throw ValidationException::withMessages([
-            'email' => [__($status)]
-        ]);
+        return $status === Password::PASSWORD_RESET
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
     }
 }
