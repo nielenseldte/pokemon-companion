@@ -1,6 +1,6 @@
-import { createApp, h } from 'vue'
-import { createInertiaApp, Link } from '@inertiajs/vue3'
-import Layout from './Shared/Layout.vue'
+import { createApp, h } from 'vue';
+import { createInertiaApp, Link } from '@inertiajs/vue3';
+import Layout from './Shared/Layout.vue';
 
 createInertiaApp({
     resolve: name => {
@@ -15,10 +15,11 @@ createInertiaApp({
             .component('Link', Link)
             .mount(el)
     },
+
     progress: {
         delay: 150,
         color: '#0000FF',
         includeCSS: true,
         showSpinner: true,
-    },
-})
+    }
+});
